@@ -203,7 +203,7 @@ public:
         bool first = true;
 
         // loop through all members
-        for (auto &iter : _fields)
+        for (auto &iter = _fields.begin(); iter != _fields.end(); ++iter)
         {
             // split with comma
             if (!first) stream << ",";

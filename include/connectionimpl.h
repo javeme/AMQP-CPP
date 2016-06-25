@@ -67,13 +67,13 @@ protected:
         state_connected,            // connection is set up and ready for communication
         state_closing,              // connection is busy closing (we have sent the close frame)
         state_closed                // connection is closed
-    } _state = state_protocol;
+    } _state;
 
     /**
      *  Has the close() method been called?
      *  @var    bool
      */
-    bool _closed = false;
+    bool _closed;
 
     /**
      *  All channels that are active
@@ -85,26 +85,26 @@ protected:
      *  The last unused channel ID
      *  @var    uint16_t
      */
-    uint16_t _nextFreeChannel = 1;
+    uint16_t _nextFreeChannel;
 
     /**
      *  Max number of channels (0 for unlimited)
      *  @var    uint16_t
      */
-    uint16_t _maxChannels = 0;
+    uint16_t _maxChannels;
 
     /**
      *  Max frame size
      *  @var    uint32_t
      */
-    uint32_t _maxFrame = 4096;
+    uint32_t _maxFrame;
 
     /**
      *  Number of expected bytes that will hold the next incoming frame
      *  We start with seven because that is the header of a frame
      *  @var    uint32_t
      */
-    uint32_t _expected = 7;
+    uint32_t _expected;
 
     /**
      *  The login for the server (login, password)
@@ -128,7 +128,7 @@ protected:
      *  Heartbeat delay
      *  @var uint16_t
      */
-    uint16_t _heartbeat = 0;
+    uint16_t _heartbeat;
 
     /**
      *  Helper method to send the close frame
@@ -170,7 +170,7 @@ public:
      *  Copy'ing connections is impossible
      *  @param  connection
      */
-    ConnectionImpl(const ConnectionImpl &connection) = delete;
+    ConnectionImpl(const ConnectionImpl &connection) METHOD_DELETE;
 
     /**
      *  Destructor
@@ -182,7 +182,7 @@ public:
      *  @param  connection
      *  @return ConnectionImpl
      */
-    ConnectionImpl &operator=(const ConnectionImpl &connection) = delete;
+    ConnectionImpl &operator=(const ConnectionImpl &connection) METHOD_DELETE;
 
     /**
      *  What is the state of the connection - is the protocol handshake completed?

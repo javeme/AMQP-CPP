@@ -39,7 +39,7 @@ private:
      *  Port number
      *  @var uint16_t
      */
-    uint16_t _port = 5672;
+    uint16_t _port;
     
     /**
      *  The vhost
@@ -54,7 +54,7 @@ public:
      *  @param  address
      *  @throws std::runtime_error
      */
-    Address(const char *address) : _vhost("/")
+    Address(const char *address) : _vhost("/"), _port(5672)
     {
         // must start with amqp://
         if (strncmp(address, "amqp://", 7) != 0) throw std::runtime_error("AMQP address should start with \"amqp://\"");
@@ -108,7 +108,7 @@ public:
      *  Constructor based on std::string
      *  @param  address
      */
-    Address(const std::string &address) : Address(address.data()) {}
+    //Address(const std::string &address) : Address(address.data()) {}
 
     /**
      *  Constructor based on already known properties
@@ -175,7 +175,7 @@ public:
         str.append(_login.user()).append(":").append(_login.password()).append("@").append(_hostname);
         
         // do we need a special portnumber?
-        if (_port != 5672) str.append(":").append(std::to_string(_port));
+        if (_port != 5672) str.append(":").append(std::to_string((uint64_t)_port));
         
         // append default vhost
         str.append("/");

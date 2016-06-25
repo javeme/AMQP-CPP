@@ -30,7 +30,9 @@ namespace AMQP {
  *  @param  login           Login data
  */
 ConnectionImpl::ConnectionImpl(Connection *parent, ConnectionHandler *handler, const Login &login, const std::string &vhost) :
-    _parent(parent), _handler(handler), _login(login), _vhost(vhost)
+    _parent(parent), _handler(handler), _login(login), _vhost(vhost),
+	_closed(false), _expected(7), _heartbeat(0), _maxChannels(0),
+	_maxFrame(4096), _nextFreeChannel(1), _state(state_protocol)
 {
     // we need to send a protocol header
     send(ProtocolHeaderFrame());
@@ -300,10 +302,10 @@ bool ConnectionImpl::waiting() const
 bool ConnectionImpl::waitingChannels() const
 {
     // loop through the channels
-    for (auto &iter : _channels)
+    for (auto &iter = _channels.begin(); iter != _channels.end(); ++iter)
     {
         // is this a waiting channel
-        if (iter.second->waiting()) return true;
+        if (iter->second->waiting()) return true;
     }
 
     // no waiting channel found

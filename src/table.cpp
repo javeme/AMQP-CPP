@@ -104,7 +104,8 @@ std::vector<std::string> Table::keys() const
     result.reserve(_fields.size());
 
     // insert all keys into the result vector
-    for (auto &iter : _fields) result.push_back(iter.first);
+    for (auto &iter = _fields.begin(); iter != _fields.end(); ++iter)
+		result.push_back(iter->first);
 
     // now return the result
     return result;

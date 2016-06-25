@@ -58,7 +58,7 @@ public:
      *  No copy'ing allowed
      *  @param  that
      */
-    TcpOutBuffer(const TcpOutBuffer &that) = delete;
+    TcpOutBuffer(const TcpOutBuffer &that) METHOD_DELETE;
 
     /**
      *  Move operator

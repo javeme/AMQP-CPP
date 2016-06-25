@@ -19,7 +19,7 @@ private:
      *  Field that no longer is used
      *  @var uint16_t
      */
-    uint16_t _deprecated = 0;
+    uint16_t _deprecated;
     
     /**
      *  The exchange name
@@ -85,7 +85,8 @@ public:
         _name(name),
         _type(type),
         _bools(passive, durable, false, false, noWait),
-        _arguments(arguments)
+        _arguments(arguments),
+		_deprecated(0)
     {}
 
     /**

@@ -39,7 +39,7 @@ TcpConnection::TcpConnection(TcpHandler *handler, const Address &address) :
 void TcpConnection::process(int fd, int flags)
 {
     // monitor the object for destruction
-    Monitor monitor{ this };
+    Monitor monitor(this);
 
     // pass on the the state, that returns a new impl
     auto *result = _state->process(fd, flags);

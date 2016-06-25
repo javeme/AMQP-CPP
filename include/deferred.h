@@ -185,8 +185,8 @@ public:
     /**
      *  Deleted copy and move constructors
      */
-    Deferred(const Deferred &that) = delete;
-    Deferred(Deferred &&that) = delete;
+    Deferred(const Deferred &that) METHOD_DELETE;
+    Deferred(Deferred &&that) METHOD_DELETE;
 
     /**
      *  Destructor

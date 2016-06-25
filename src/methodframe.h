@@ -96,7 +96,7 @@ public:
     virtual bool process(ConnectionImpl *connection) override
     {
         // this is an exception
-        throw ProtocolException("unimplemented frame type " + std::to_string(type()) + " class " + std::to_string(classID()) + " method " + std::to_string(methodID()));
+        throw ProtocolException("unimplemented frame type " + std::to_string((uint64_t)type()) + " class " + std::to_string((uint64_t)classID()) + " method " + std::to_string((uint64_t)methodID()));
     }
 };
 

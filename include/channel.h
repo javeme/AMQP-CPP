@@ -41,7 +41,7 @@ public:
      *  Copy'ing of channel objects is not supported
      *  @param  channel
      */
-    Channel(const Channel &channel) = delete;
+    Channel(const Channel &channel) METHOD_DELETE;
 
     /**
      *  Destructor
@@ -57,7 +57,7 @@ public:
      *  @param  channel
      *  @return Channel
      */
-    Channel &operator=(const Channel &channel) = delete;
+    Channel &operator=(const Channel &channel) METHOD_DELETE;
 
     /**
      *  Callback that is called when the channel was succesfully created.

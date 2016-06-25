@@ -84,7 +84,8 @@ namespace AMQP {
  *  @param  buffer      Binary buffer
  *  @param  max         Max size for a frame
  */
-ReceivedFrame::ReceivedFrame(const Buffer &buffer, uint32_t max) : _buffer(buffer)
+ReceivedFrame::ReceivedFrame(const Buffer &buffer, uint32_t max) : _buffer(buffer),
+	_skip(0), _type(0), _channel(0), _payloadSize(0)
 {
     // we need enough room for type, channel, the payload size, 
     // the the end-of-frame byte is not yet necessary
@@ -316,7 +317,7 @@ bool ReceivedFrame::process(ConnectionImpl *connection)
     }
     
     // this is a problem
-    throw ProtocolException("unrecognized frame type " + std::to_string(_type));
+    throw ProtocolException("unrecognized frame type " + std::to_string((uint64_t)_type));
 }
 
 /**
@@ -341,7 +342,7 @@ bool ReceivedFrame::processMethodFrame(ConnectionImpl *connection)
     }
 
     // this is a problem
-    throw ProtocolException("unrecognized method frame class " + std::to_string(classID));
+    throw ProtocolException("unrecognized method frame class " + std::to_string((uint64_t)classID));
 }
 
 /**
@@ -370,7 +371,7 @@ bool ReceivedFrame::processConnectionFrame(ConnectionImpl *connection)
     }
 
     // this is a problem
-    throw ProtocolException("unrecognized connection frame method " + std::to_string(methodID));
+    throw ProtocolException("unrecognized connection frame method " + std::to_string((uint64_t)methodID));
 }
 
 /**
@@ -395,7 +396,7 @@ bool ReceivedFrame::processChannelFrame(ConnectionImpl *connection)
     }
 
     // this is a problem
-    throw ProtocolException("unrecognized channel frame method " + std::to_string(methodID));
+    throw ProtocolException("unrecognized channel frame method " + std::to_string((uint64_t)methodID));
 }
 
 /**
@@ -425,7 +426,7 @@ bool ReceivedFrame::processExchangeFrame(ConnectionImpl *connection)
     }
 
     // this is a problem
-    throw ProtocolException("unrecognized exchange frame method " + std::to_string(methodID));
+    throw ProtocolException("unrecognized exchange frame method " + std::to_string((uint64_t)methodID));
 }
 
 /**
@@ -454,7 +455,7 @@ bool ReceivedFrame::processQueueFrame(ConnectionImpl *connection)
     }
 
     // this is a problem
-    throw ProtocolException("unrecognized queue frame method " + std::to_string(methodID));
+    throw ProtocolException("unrecognized queue frame method " + std::to_string((uint64_t)methodID));
 }
 
 /**
@@ -491,7 +492,7 @@ bool ReceivedFrame::processBasicFrame(ConnectionImpl *connection)
     }
 
     // this is a problem
-    throw ProtocolException("unrecognized basic frame method " + std::to_string(methodID));
+    throw ProtocolException("unrecognized basic frame method " + std::to_string((uint64_t)methodID));
 }
 
 /**
@@ -516,7 +517,7 @@ bool ReceivedFrame::processTransactionFrame(ConnectionImpl *connection)
     }
 
     // this is a problem
-    throw ProtocolException("unrecognized transaction frame method " + std::to_string(methodID));
+    throw ProtocolException("unrecognized transaction frame method " + std::to_string((uint64_t)methodID));
 }
 
 /**
@@ -536,7 +537,7 @@ bool ReceivedFrame::processHeaderFrame(ConnectionImpl *connection)
     }
 
     // this is a problem
-    throw ProtocolException("unrecognized header frame class " + std::to_string(classID));
+    throw ProtocolException("unrecognized header frame class " + std::to_string((uint64_t)classID));
 }
 
 /**

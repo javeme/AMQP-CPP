@@ -19,7 +19,7 @@ private:
      *  Unused field
      *  @var int16_t
      */
-    int16_t _deprecated = 0;
+    int16_t _deprecated;
 
     /**
      *  the queue name
@@ -79,12 +79,13 @@ public:
      *  @param   routingKey  the routingKey
      *  @param   arguments   additional arguments, implementation dependant.
      */
-    QueueUnbindFrame(uint16_t channel, const std::string& name, const std::string& exchange, const std::string& routingKey = "", const Table& arguments = {} ) :
+    QueueUnbindFrame(uint16_t channel, const std::string& name, const std::string& exchange, const std::string& routingKey = "", const Table& arguments = Table()) :
         QueueFrame(channel, (name.length() + exchange.length() + routingKey.length() + arguments.size() + 5) ), // 1 per string, 2 for deprecated field
         _name(name),
         _exchange(exchange),
         _routingKey(routingKey),
-        _arguments(arguments)
+		_arguments(arguments),
+		_deprecated(0)
     {}
 
     /**

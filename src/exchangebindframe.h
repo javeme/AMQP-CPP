@@ -19,7 +19,7 @@ private:
      *  reserved byte
      *  @var uint16_t
      */
-    uint16_t _reserved = 0;
+    uint16_t _reserved;
 
     /**
      *  Exchange to bind to
@@ -100,7 +100,8 @@ public:
         _source(source),
         _routingKey(routingKey),
         _bools(noWait),
-        _arguments(arguments)
+        _arguments(arguments),
+		_reserved(0)
     {}
 
     /**

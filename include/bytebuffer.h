@@ -48,7 +48,7 @@ public:
      *  No copy'ing
      *  @param  that
      */
-    ByteBuffer(const ByteBuffer &that) = delete;
+    ByteBuffer(const ByteBuffer &that) METHOD_DELETE;
     
     /**
      *  Move constructor

@@ -107,11 +107,11 @@ size_t Array::size() const
     size_t size = 4;
 
     // iterate over all elements
-    for (auto item : _fields)
+    for (auto item = _fields.begin(); item != _fields.end(); ++item)
     {
         // add the size of the field type and size of element
-        size += sizeof(item->typeID());
-        size += item->size();
+        size += sizeof(item->get()->typeID());
+        size += item->get()->size();
     }
 
     // return the result
@@ -128,11 +128,11 @@ void Array::fill(OutBuffer& buffer) const
     buffer.add(static_cast<uint32_t>(size()-4));
 
     // iterate over all elements
-    for (auto item : _fields)
+    for (auto item = _fields.begin(); item != _fields.end(); ++item)
     {
         // encode the element type and element
-        buffer.add((uint8_t)item->typeID());
-        item->fill(buffer);
+        buffer.add((uint8_t)item->get()->typeID());
+        item->get()->fill(buffer);
     }
 }
 

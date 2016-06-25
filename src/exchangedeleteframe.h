@@ -19,7 +19,7 @@ private:
      *  Field that is no longer in use
      *  @var uint16_t
      */
-    uint16_t _deprecated = 0;
+    uint16_t _deprecated;
 
     /**
      *  The exchange name
@@ -75,7 +75,8 @@ public:
     ExchangeDeleteFrame(uint16_t channel, const std::string& name, bool ifUnused = false, bool noWait = false) :
         ExchangeFrame(channel, name.length() + 4), // length of the name, 1 byte for encoding this length, 1 for bools, 2 for deprecated short
         _name(name),
-        _bools(ifUnused, noWait)
+        _bools(ifUnused, noWait),
+		_deprecated(0)
     {}
 
     /**

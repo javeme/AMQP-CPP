@@ -43,6 +43,7 @@ public:
         // safety-check: on 32-bit platforms size_t is obviously also a 32-bit dword
         // in which case casting the uint64_t to a size_t could result in truncation
         // here we check whether the given size fits inside a size_t
+        #undef max
         if (std::numeric_limits<size_t>::max() < size) throw std::runtime_error("message is too big for this system");
 
         // store the new size
@@ -81,6 +82,7 @@ public:
             // safety-check: if the given size exceeds the given message body size
             // we truncate it, this should never happen because it indicates a bug
             // in the AMQP server implementation, should we report this?
+            #undef min
             size = std::min(size, _bodySize - _str.size());
 
             // we can not safely append the data to the string, it

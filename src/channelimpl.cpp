@@ -660,7 +660,7 @@ bool ChannelImpl::send(const Frame &frame)
     {
         // we need to wait until the synchronous frame has
         // been processed, so queue the frame until it was
-        _queue.emplace(frame.synchronous(), frame.buffer());
+        _queue.emplace(std::make_pair(frame.synchronous(), frame.buffer()));
 
         // it was of course not actually sent but we pretend
         // that it was, because no error occured

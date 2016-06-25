@@ -11,6 +11,7 @@
  *  Include guard
  */
 #pragma once
+#include "endian.h"
 
 /**
  *  Dependencies

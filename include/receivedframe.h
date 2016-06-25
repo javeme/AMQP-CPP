@@ -48,25 +48,25 @@ private:
      *  Number of bytes already processed
      *  @var    uint32_t
      */
-    uint32_t _skip = 0;
+    uint32_t _skip;
 
     /**
      *  Type of frame
      *  @var    uint8_t
      */
-    uint8_t _type = 0;
+    uint8_t _type;
 
     /**
      *  Channel identifier
      *  @var    uint16_t
      */
-    uint16_t _channel = 0;
+    uint16_t _channel;
 
     /**
      *  The payload size
      *  @var    uint32_t
      */
-    uint32_t _payloadSize = 0;
+    uint32_t _payloadSize;
 
 
     /**

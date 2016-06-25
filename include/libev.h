@@ -90,8 +90,8 @@ private:
          *
          *  @param  that    The object to not move or copy
          */
-        Watcher(Watcher &&that) = delete;
-        Watcher(const Watcher &that) = delete;
+        Watcher(Watcher &&that) METHOD_DELETE;
+        Watcher(const Watcher &that) METHOD_DELETE;
 
         /**
          *  Destructor
@@ -175,7 +175,7 @@ public:
     /**
      *  Destructor
      */
-    virtual ~LibEvHandler() = default;
+    virtual ~LibEvHandler() METHOD_DEFAULT;
 };
 
 /**

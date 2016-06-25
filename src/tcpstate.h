@@ -55,7 +55,7 @@ public:
     /**
      *  Virtual destructor
      */
-    virtual ~TcpState() = default;
+    virtual ~TcpState() METHOD_DEFAULT;
 
     /**
      *  Process the filedescriptor in the object    

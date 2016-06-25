@@ -75,7 +75,7 @@ public:
     void report(const MessageCallback &callback)
     {
         // send ourselves to the consumer
-        if (callback) callback(std::move(*this), _deliveryTag, _redelivered);
+        if (callback) callback(*this, _deliveryTag, _redelivered);
     }
 };
 

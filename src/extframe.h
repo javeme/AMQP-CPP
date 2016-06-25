@@ -151,7 +151,7 @@ public:
     virtual bool process(ConnectionImpl *connection) override
     {
         // this is an exception
-        throw ProtocolException("unimplemented frame type " + std::to_string(type()));
+        throw ProtocolException("unimplemented frame type " + std::to_string((uint64_t)type()));
 
         // unreachable
         return false;

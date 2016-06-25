@@ -34,7 +34,7 @@ public:
      *  No copy'ing
      *  @param  that        object to copy
      */
-    TcpInBuffer(const TcpInBuffer &that) = delete;
+    TcpInBuffer(const TcpInBuffer &that) METHOD_DELETE;
     
     /**
      *  Move constructor

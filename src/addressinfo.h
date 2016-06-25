@@ -22,7 +22,7 @@ private:
      *  The addresses
      *  @var struct AddressInfo
      */
-    struct addrinfo *_info = nullptr;
+    struct addrinfo *_info;
     
     /**
      *  Vector of addrinfo pointers
@@ -36,10 +36,10 @@ public:
      *  @param  hostname
      *  @param  port
      */
-    AddressInfo(const char *hostname, uint16_t port = 5672)
+    AddressInfo(const char *hostname, uint16_t port = 5672) : _info(nullptr)
     {
         // store portnumber in buffer
-        auto portnumber = std::to_string(port);
+        auto portnumber = std::to_string((uint64_t)port);
         
         // info about the lookup
         struct addrinfo hints;

@@ -150,6 +150,7 @@ public:
      */
     constexpr static size_t maxLength()
     {
+        #undef max
         return T::max();
     }
 

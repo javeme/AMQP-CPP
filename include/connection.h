@@ -62,7 +62,7 @@ public:
      *  No copy'ing, we do not support having two identical connection objects
      *  @param  connection
      */
-    Connection(const Connection &connection) = delete;
+    Connection(const Connection &connection) METHOD_DELETE;
 
     /**
      *  Destructor
@@ -74,7 +74,7 @@ public:
      *  @param  connection
      *  @return Connection
      */
-    Connection &operator=(const Connection &connection) = delete;
+    Connection &operator=(const Connection &connection) METHOD_DELETE;
     
     /**
      *  Retrieve the login data

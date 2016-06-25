@@ -16,7 +16,6 @@
  *  Dependencies
  */
 #include <fcntl.h>
-#include <unistd.h>
 
 /**
  *  Set up namespace

@@ -59,7 +59,7 @@ private:
      *  Pointer to the connection
      *  @var    ConnectionImpl
      */
-    ConnectionImpl *_connection = nullptr;
+    ConnectionImpl *_connection;
 
     /**
      *  Callback when the channel is ready
@@ -98,7 +98,7 @@ private:
      *  The channel number
      *  @var uint16_t
      */
-    uint16_t _id = 0;
+    uint16_t _id;
 
     /**
      *  State of the channel object
@@ -109,7 +109,7 @@ private:
         state_ready,
         state_closing,
         state_closed
-    } _state = state_closed;
+    } _state;
 
     /**
      *  The frames that still need to be send out
@@ -125,7 +125,7 @@ private:
      *  Are we currently operating in synchronous mode?
      *  @var bool
      */
-    bool _synchronous = false;
+    bool _synchronous;
 
     /**
      *  The current consumer receiving a message
@@ -161,14 +161,15 @@ protected:
      *  a friend. By doing this we ensure that nobody can instantiate this
      *  object, and that it can thus only be used inside the library.
      */
-    ChannelImpl();
+    ChannelImpl() : _connection(nullptr), _id(0),
+		_state(state_closed), _synchronous(false) {}
 
 public:
     /**
      *  Copy'ing of channel objects is not supported
      *  @param  channel
      */
-    ChannelImpl(const ChannelImpl &channel) = delete;
+    ChannelImpl(const ChannelImpl &channel) METHOD_DELETE;
 
     /**
      *  Destructor
@@ -180,7 +181,7 @@ public:
      *  @param  channel
      *  @return Channel
      */
-    ChannelImpl &operator=(const ChannelImpl &channel) = delete;
+    ChannelImpl &operator=(const ChannelImpl &channel) METHOD_DELETE;
 
     /**
      *  Invalidate the channel
@@ -622,8 +623,8 @@ public:
      *  @param  mixed
      *  @return bool
      */
-    template <typename... Arguments>
-    bool reportSuccess(Arguments ...parameters)
+    template <typename Arg1>
+    bool reportSuccess(Arg1 parameter1)
     {
         // skip if there is no oldest callback
         if (!_oldestCallback) return true;
@@ -636,7 +637,7 @@ public:
         auto cb = _oldestCallback;
 
         // call the callback
-        auto next = cb->reportSuccess(std::forward<Arguments>(parameters)...);
+        auto next = cb->reportSuccess(parameter1);
 
         // leap out if channel no longer exists
         if (!monitor.valid()) return false;
@@ -649,7 +650,64 @@ public:
 
         // we are still valid
         return true;
-    }
+	}
+
+	template <typename Arg1, typename Arg2, typename Arg3>
+	bool reportSuccess(Arg1 parameter1, Arg2 parameter2, Arg3 parameter3)
+	{
+		// skip if there is no oldest callback
+		if (!_oldestCallback) return true;
+
+		// we are going to call callbacks that could destruct the channel
+		Monitor monitor(this);
+
+		// copy the callback (so that it will not be destructed during
+		// the "reportSuccess" call, if the channel is destructed during the call)
+		auto cb = _oldestCallback;
+
+		// call the callback
+		auto next = cb->reportSuccess(parameter1, parameter2, parameter3);
+
+		// leap out if channel no longer exists
+		if (!monitor.valid()) return false;
+
+		// set the oldest callback
+		_oldestCallback = next;
+
+		// if there was no next callback, the newest callback was just used
+		if (!next) _newestCallback = nullptr;
+
+		// we are still valid
+		return true;
+	}
+
+	bool reportSuccess()
+	{
+		// skip if there is no oldest callback
+		if (!_oldestCallback) return true;
+
+		// we are going to call callbacks that could destruct the channel
+		Monitor monitor(this);
+
+		// copy the callback (so that it will not be destructed during
+		// the "reportSuccess" call, if the channel is destructed during the call)
+		auto cb = _oldestCallback;
+
+		// call the callback
+		auto next = cb->reportSuccess();
+
+		// leap out if channel no longer exists
+		if (!monitor.valid()) return false;
+
+		// set the oldest callback
+		_oldestCallback = next;
+
+		// if there was no next callback, the newest callback was just used
+		if (!next) _newestCallback = nullptr;
+
+		// we are still valid
+		return true;
+	}
 
     /**
      *  Report an error message on a channel

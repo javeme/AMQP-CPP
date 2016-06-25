@@ -19,7 +19,7 @@ private:
      *  Deprecated field
      *  @var uint16_t
      */
-    uint16_t _deprecated = 0;
+    uint16_t _deprecated;
 
     /**
      *  name of the queue to get a message from
@@ -61,7 +61,8 @@ public:
     BasicGetFrame(uint16_t channel, const std::string& queue, bool noAck = false) :
         BasicFrame(channel, queue.length() + 4), // 1 for bool, 1 for string size, 2 for deprecated field
         _queue(queue),
-        _noAck(noAck)
+        _noAck(noAck),
+		_deprecated(0)
     {}
 
     /**

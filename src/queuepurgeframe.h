@@ -18,7 +18,7 @@ private:
      *  Field that is no longer in use
      *  @var int16_t
      */
-    int16_t _deprecated = 0;
+    int16_t _deprecated;
 
     /**
      *  Name of the queue
@@ -67,7 +67,8 @@ public:
     QueuePurgeFrame(uint16_t channel, const std::string& name, bool noWait = false) :
         QueueFrame(channel, name.length() + 4), // 1 extra for string length, 1 for bool, 2 for deprecated field
         _name(name),
-        _noWait(noWait)
+		_noWait(noWait),
+		_deprecated(0)
     {}
 
     /**

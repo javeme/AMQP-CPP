@@ -181,7 +181,7 @@ public:
     /**
      *  Destructor
      */
-    virtual ~LibEventHandler() = default;
+    virtual ~LibEventHandler() METHOD_DEFAULT;
 };
 
 /**
