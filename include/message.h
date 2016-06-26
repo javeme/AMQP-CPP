@@ -154,7 +154,7 @@ public:
     /**
      *  Destructor
      */
-    virtual ~Message() = default;
+    virtual ~Message() METHOD_DEFAULT;
 
     /**
      *  Assignment operator

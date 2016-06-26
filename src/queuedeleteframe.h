@@ -72,7 +72,7 @@ public:
         QueueFrame(channel, name.length() + 4), // 1 for string length, 1 for bools, 2 for deprecated field
         _name(name),
         _bools(ifUnused, ifEmpty, noWait),
-		_deprecated(0)
+        _deprecated(0)
     {}
     
     /**

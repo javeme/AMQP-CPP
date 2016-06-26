@@ -43,7 +43,7 @@ private:
      *  Size of the body of the current message
      *  @var    uint64_t
      */
-    uint64_t _bodySize = 0;
+    uint64_t _bodySize;
 
     /**
      *  Process a delivery frame
@@ -92,13 +92,13 @@ protected:
      *  The delivery tag for the current message
      *  @var    uint64_t
      */
-    uint64_t _deliveryTag = 0;
+    uint64_t _deliveryTag;
 
     /**
      *  Is this a redelivered message
      *  @var    bool
      */
-    bool _redelivered = false;
+    bool _redelivered;
 
     /**
      *  The channel to which the consumer is linked
@@ -148,7 +148,9 @@ protected:
      *  @param  failed  Have we already failed?
      *  @param  channel The channel we are consuming on
      */
-    DeferredConsumerBase(bool failed, ChannelImpl *channel) : Deferred(failed), _channel(channel) {}
+    DeferredConsumerBase(bool failed, ChannelImpl *channel) :
+        Deferred(failed), _channel(channel),
+        _bodySize(0), _deliveryTag(0), _redelivered(false) {}
 public:
 };
 

@@ -86,7 +86,7 @@ public:
         _type(type),
         _bools(passive, durable, false, false, noWait),
         _arguments(arguments),
-		_deprecated(0)
+        _deprecated(0)
     {}
 
     /**

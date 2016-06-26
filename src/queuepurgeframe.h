@@ -67,8 +67,8 @@ public:
     QueuePurgeFrame(uint16_t channel, const std::string& name, bool noWait = false) :
         QueueFrame(channel, name.length() + 4), // 1 extra for string length, 1 for bool, 2 for deprecated field
         _name(name),
-		_noWait(noWait),
-		_deprecated(0)
+        _noWait(noWait),
+        _deprecated(0)
     {}
 
     /**

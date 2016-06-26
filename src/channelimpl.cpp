@@ -49,7 +49,9 @@ namespace AMQP {
 /**
  *  Constructor
  */
-ChannelImpl::ChannelImpl() = default;
+ChannelImpl::ChannelImpl() : _connection(nullptr), _id(0),
+    _state(state_closed), _synchronous(false) {
+}
 
 /**
  *  Destructor

@@ -95,7 +95,7 @@ public:
     /**
      *  Destructor
      */
-    virtual ~BasicHeaderFrame() = default;
+    virtual ~BasicHeaderFrame() METHOD_DEFAULT;
 
     /**
      *  Size of the body

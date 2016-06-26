@@ -41,7 +41,7 @@ class MetaData;
 #define BeginCallback        std::function<void()>
 #define HeaderCallback       std::function<void(const MetaData &metaData)>
 #define DataCallback         std::function<void(const char *data, size_t size)>
-//#define MessageCallback    std::function<void(Message &&message, uint64_t deliveryTag, bool redelivered)>
+//using MessageCallback   = std::function<void(Message &&message, uint64_t deliveryTag, bool redelivered)>;
 #define MessageCallback      std::function<void(const Message &message, uint64_t deliveryTag, bool redelivered)>
 #define CompleteCallback     std::function<void(uint64_t deliveryTag, bool redelivered)>
 #define QueueCallback        std::function<void(const std::string &name, uint32_t messagecount, uint32_t consumercount)>

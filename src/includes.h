@@ -21,28 +21,32 @@
 #include <unordered_map>
 #include <vector>
 #include <queue>
+#include <sys/types.h>
 
 #if defined(WIN32)
-#include <sys/types.h>
+
+#define NOMINMAX
+#define WIN32_LEAN_AND_MEAN
+#define constexpr
+#define METHOD_DELETE
+#define METHOD_DEFAULT {}
+#define alignof __alignof
 #include <winsock2.h>
 #include <io.h>
 //#include <wspiapi.h>
 #include <ws2tcpip.h>
-#include <functional>
 #undef gai_strerror
 #define gai_strerror gai_strerrorA
-#define constexpr
-#define METHOD_DELETE
-#define METHOD_DEFAULT {}
+
 #else
-#include <sys/types.h>
+
 #include <sys/socket.h>
 #include <netdb.h>
 #include <unistd.h>
 #include <netinet/tcp.h>
-#include <functional>
 #define METHOD_DELETE =delete
 #define METHOD_DEFAULT =default
+
 #endif
 
 

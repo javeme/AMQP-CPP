@@ -11,7 +11,6 @@
  *  Include guard
  */
 #pragma once
-#include "endian.h"
 
 /**
  *  Dependencies
@@ -100,7 +99,7 @@ public:
     /**
      *  Destructor
      */
-    virtual ~OutBuffer() = default;
+    virtual ~OutBuffer() METHOD_DEFAULT;
 
     /**
      *  Get access to the internal buffer

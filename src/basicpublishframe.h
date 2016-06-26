@@ -74,7 +74,7 @@ public:
         _exchange(exchange),
         _routingKey(routingKey),
         _bools(mandatory, immediate),
-		_deprecated(0)
+        _deprecated(0)
     {}
 
     /**

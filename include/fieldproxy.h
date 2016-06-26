@@ -264,8 +264,8 @@ public:
 };
 
 // define types for array- and table-based field proxy
-using AssociativeFieldProxy = FieldProxy<Table, std::string>;
-using ArrayFieldProxy       = FieldProxy<Array, uint8_t>;
+typedef FieldProxy<Table, std::string> AssociativeFieldProxy;
+typedef FieldProxy<Array, uint8_t> ArrayFieldProxy;
 
 /**
  *  end namespace

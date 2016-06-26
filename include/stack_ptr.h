@@ -29,26 +29,27 @@ private:
      *  Storage for the object
      *  @var    std::aligned_storage<sizeof(T), alignof(T)>
      */
-    std::aligned_storage<sizeof(T), alignof(T)> _data;
+    typedef typename std::aligned_storage<sizeof(T), alignof(T)>::type Type;
+    Type _data;
 
     /**
      *  Is the pointer initialized?
      *  @var    boolean
      */
-    bool _initialized = false;
+    bool _initialized;
 public:
     /**
      *  Constructor
      */
-    stack_ptr() = default;
+    stack_ptr() : _initialized(false) METHOD_DEFAULT;
 
     /**
      *  Copy and moving is disabled
      *
      *  @param  that    The stack_ptr we refuse to copy/move
      */
-    stack_ptr(const stack_ptr &that) = delete;
-    stack_ptr(stack_ptr &&that) = delete;
+    stack_ptr(const stack_ptr &that) METHOD_DELETE;
+    stack_ptr(stack_ptr &&that) METHOD_DELETE;
 
     /**
      *  Destructor
@@ -79,14 +80,26 @@ public:
      *
      *  @param  ...     Zero or more constructor arguments for T
      */
-    template <typename... Arguments>
-    void construct(Arguments&&... parameters)
+    template <typename Arg1>
+    void construct(Arg1&& parameter1)
     {
         // first reset the current object
         reset();
 
         // initialize new object
-        new (&_data) T(std::forward<Arguments>(parameters)...);
+        new (&_data) T(parameter1);
+        _initialized = true;
+    }
+
+    template <typename Arg1, typename Arg2>
+    void construct(Arg1&& parameter1, Arg2&& parameter2)
+    {
+        // first reset the current object
+        reset();
+
+        // initialize new object
+        new (&_data) T(parameter1, parameter2);
+        _initialized = true;
     }
 
     /**

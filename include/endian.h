@@ -58,7 +58,7 @@
 
 #include <winsock2.h>
 #pragma comment(lib,"Ws2_32.lib")
-//#	include <sys/param.h>
+//#    include <sys/param.h>
 
 #if BYTE_ORDER == LITTLE_ENDIAN
 
@@ -72,8 +72,13 @@
 #define be32toh(x) ntohl(x)
 #define le32toh(x) (x)
 
-#define htonll(x) ((32 << (uint64_t)htonl((uint32_t)x)) | htonl((uint32_t)(x >> 32)))
-#define ntohll(x) ((32 << (uint64_t)ntohl((uint32_t)x)) | ntohl((uint32_t)(x >> 32)))
+#define htonl_h32(x) ((uint64_t)htonl((uint32_t)x) << 32)
+#define htonl_l32(x) htonl((uint32_t)(x >> 32))
+#define ntohl_h32(x) ((uint64_t)ntohl((uint32_t)x) << 32)
+#define ntohl_l32(x) ntohl((uint32_t)(x >> 32))
+
+#define htonll(x) (htonl_h32(x) + htonl_l32(x))
+#define ntohll(x) (ntohl_h32(x) + ntohl_l32(x))
 
 #define htobe64(x) htonll(x)
 #define htole64(x) (x)

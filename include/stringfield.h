@@ -71,7 +71,7 @@ public:
     /**
      *  Clean up memory used
      */
-    virtual ~StringField() = default;
+    virtual ~StringField() METHOD_DEFAULT;
 
     /**
      *  Create a new instance of this object
@@ -150,7 +150,6 @@ public:
      */
     constexpr static size_t maxLength()
     {
-        #undef max
         return T::max();
     }
 

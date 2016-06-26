@@ -67,7 +67,7 @@ const std::shared_ptr<Deferred> &DeferredGet::reportSuccess() const
 void DeferredGet::emit(Message &&message, uint64_t deliveryTag, bool redelivered) const
 {
     // monitor the channel
-    Monitor monitor{ _channel };
+    Monitor monitor(_channel);
 
     // the channel is now synchronized
     _channel->onSynchronized();
@@ -79,7 +79,7 @@ void DeferredGet::emit(Message &&message, uint64_t deliveryTag, bool redelivered
     if (!monitor.valid()) return;
 
     // stop consuming now
-    _channel->uninstall({});
+    _channel->uninstall("");
 }
 
 /**

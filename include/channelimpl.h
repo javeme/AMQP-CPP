@@ -161,8 +161,7 @@ protected:
      *  a friend. By doing this we ensure that nobody can instantiate this
      *  object, and that it can thus only be used inside the library.
      */
-    ChannelImpl() : _connection(nullptr), _id(0),
-		_state(state_closed), _synchronous(false) {}
+    ChannelImpl();
 
 public:
     /**
@@ -650,64 +649,64 @@ public:
 
         // we are still valid
         return true;
-	}
+    }
 
-	template <typename Arg1, typename Arg2, typename Arg3>
-	bool reportSuccess(Arg1 parameter1, Arg2 parameter2, Arg3 parameter3)
-	{
-		// skip if there is no oldest callback
-		if (!_oldestCallback) return true;
+    template <typename Arg1, typename Arg2, typename Arg3>
+    bool reportSuccess(Arg1 parameter1, Arg2 parameter2, Arg3 parameter3)
+    {
+        // skip if there is no oldest callback
+        if (!_oldestCallback) return true;
 
-		// we are going to call callbacks that could destruct the channel
-		Monitor monitor(this);
+        // we are going to call callbacks that could destruct the channel
+        Monitor monitor(this);
 
-		// copy the callback (so that it will not be destructed during
-		// the "reportSuccess" call, if the channel is destructed during the call)
-		auto cb = _oldestCallback;
+        // copy the callback (so that it will not be destructed during
+        // the "reportSuccess" call, if the channel is destructed during the call)
+        auto cb = _oldestCallback;
 
-		// call the callback
-		auto next = cb->reportSuccess(parameter1, parameter2, parameter3);
+        // call the callback
+        auto next = cb->reportSuccess(parameter1, parameter2, parameter3);
 
-		// leap out if channel no longer exists
-		if (!monitor.valid()) return false;
+        // leap out if channel no longer exists
+        if (!monitor.valid()) return false;
 
-		// set the oldest callback
-		_oldestCallback = next;
+        // set the oldest callback
+        _oldestCallback = next;
 
-		// if there was no next callback, the newest callback was just used
-		if (!next) _newestCallback = nullptr;
+        // if there was no next callback, the newest callback was just used
+        if (!next) _newestCallback = nullptr;
 
-		// we are still valid
-		return true;
-	}
+        // we are still valid
+        return true;
+    }
 
-	bool reportSuccess()
-	{
-		// skip if there is no oldest callback
-		if (!_oldestCallback) return true;
+    bool reportSuccess()
+    {
+        // skip if there is no oldest callback
+        if (!_oldestCallback) return true;
 
-		// we are going to call callbacks that could destruct the channel
-		Monitor monitor(this);
+        // we are going to call callbacks that could destruct the channel
+        Monitor monitor(this);
 
-		// copy the callback (so that it will not be destructed during
-		// the "reportSuccess" call, if the channel is destructed during the call)
-		auto cb = _oldestCallback;
+        // copy the callback (so that it will not be destructed during
+        // the "reportSuccess" call, if the channel is destructed during the call)
+        auto cb = _oldestCallback;
 
-		// call the callback
-		auto next = cb->reportSuccess();
+        // call the callback
+        auto next = cb->reportSuccess();
 
-		// leap out if channel no longer exists
-		if (!monitor.valid()) return false;
+        // leap out if channel no longer exists
+        if (!monitor.valid()) return false;
 
-		// set the oldest callback
-		_oldestCallback = next;
+        // set the oldest callback
+        _oldestCallback = next;
 
-		// if there was no next callback, the newest callback was just used
-		if (!next) _newestCallback = nullptr;
+        // if there was no next callback, the newest callback was just used
+        if (!next) _newestCallback = nullptr;
 
-		// we are still valid
-		return true;
-	}
+        // we are still valid
+        return true;
+    }
 
     /**
      *  Report an error message on a channel

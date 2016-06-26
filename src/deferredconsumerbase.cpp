@@ -10,6 +10,7 @@
 /**
  *  Dependencies
  */
+#include "includes.h"
 #include "../include/deferredconsumerbase.h"
 #include "basicdeliverframe.h"
 #include "basicheaderframe.h"
@@ -95,7 +96,7 @@ void DeferredConsumerBase::complete()
     auto self = shared_from_this();
 
     // also monitor the channel
-    Monitor monitor{ _channel };
+    Monitor monitor(_channel);
 
     // do we have a message?
     if (_message)

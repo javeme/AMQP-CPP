@@ -83,8 +83,8 @@ public:
         QueueFrame(channel, (name.length() + arguments.size() + 4 ) ), // 1 extra for string size, 1 for bools, 2 for deprecated value
         _name(name),
         _bools(passive, durable, exclusive, autoDelete, noWait),
-		_arguments(arguments),
-		_deprecated(0)
+        _arguments(arguments),
+        _deprecated(0)
     {}
     
     /**

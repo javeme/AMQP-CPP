@@ -84,8 +84,8 @@ public:
         _name(name),
         _exchange(exchange),
         _routingKey(routingKey),
-		_arguments(arguments),
-		_deprecated(0)
+        _arguments(arguments),
+        _deprecated(0)
     {}
 
     /**

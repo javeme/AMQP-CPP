@@ -101,7 +101,7 @@ public:
         _routingKey(routingKey),
         _bools(noWait),
         _arguments(arguments),
-		_reserved(0)
+        _reserved(0)
     {}
 
     /**

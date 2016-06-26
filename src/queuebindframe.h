@@ -93,7 +93,7 @@ public:
         _routingKey(routingKey),
         _noWait(noWait),
         _arguments(arguments),
-		_deprecated(0)
+        _deprecated(0)
     {}     
   
 

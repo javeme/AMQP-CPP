@@ -62,7 +62,7 @@ public:
         BasicFrame(channel, queue.length() + 4), // 1 for bool, 1 for string size, 2 for deprecated field
         _queue(queue),
         _noAck(noAck),
-		_deprecated(0)
+        _deprecated(0)
     {}
 
     /**
